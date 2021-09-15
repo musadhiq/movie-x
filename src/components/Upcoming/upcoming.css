@@ -1,0 +1,43 @@
+.main {
+  color: #fff;
+  text-align: center;
+}
+.slider {
+  max-width: 80%;
+  height: 300px;
+  margin: 20px auto;
+}
+.slider::before {
+  content: "UPCOMING MOVIES...";
+  padding: 20px 0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  top: 50%;
+  font-weight: bolder;
+  transform: translate(0%, -50%);
+  height: 30px;
+  background: rgb(81, 204, 163);
+  background: radial-gradient(
+    circle,
+    rgba(81, 204, 163, 0.8687850140056023) 2%,
+    rgba(235, 165, 15, 0.028448879551820738) 100%
+  );
+  z-index: 1000;
+  animation: animation 2s 2s ease;
+}
+img {
+  display: block;
+}
+.item {
+  height: 100%;
+}
+
+@keyframes animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
