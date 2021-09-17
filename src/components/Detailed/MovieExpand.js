@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import StarIcon from "@material-ui/icons/Star";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import TheatersIcon from "@material-ui/icons/Theaters";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import styled from "styled-components";
 import axios from "../../axiosConfig";
 import { IMAGE_URL } from "../../url";
@@ -26,6 +27,8 @@ function MovieExpand() {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(moviedtls);
+
   return (
     <>
       {moviedtls && (
@@ -78,16 +81,41 @@ function MovieExpand() {
             <Typography variant="subtitle2">{moviedtls.overview}</Typography>
             <BottomList>
               <List>
-                <Typography variant="h6">Awards</Typography>
-                <Linka href="#" onClick={(e) => e.preventDefault()}>
-                  David Yaters
+                <Linka href={moviedtls.homepage} target="_blank">
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "400px",
+                      fontWeight: "bold",
+                    }}
+                    startIcon={<PlayCircleFilledIcon />}
+                  >
+                    watch Now
+                  </Button>
                 </Linka>
               </List>
             </BottomList>
           </LeftContainer>
           <RightContainer>
             <Image src={IMAGE_URL + moviedtls.poster_path} alt="" />
-            <Link to={"/movie/youtube"}>click me</Link>
+            <Link
+              to={"/movie/youtube"}
+              style={{
+                textDecoration: "none",
+                color: "#fff",
+              }}
+            >
+              <Button
+                variant="text"
+                style={{
+                  color: "#Fff",
+                  width: "100%",
+                  backgroundColor: "#000",
+                }}
+              >
+                Watch Trailor
+              </Button>
+            </Link>
           </RightContainer>
         </Container>
       )}
