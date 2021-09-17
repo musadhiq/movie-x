@@ -8,10 +8,11 @@ import { IMAGE_URL } from "../../url";
 import { useContext } from "react";
 import { MovieContext } from "../../Context";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/Loading";
 // import { Typography } from "@material-ui/core";
 
 function Upcoming() {
-  const [upcoming, setupcoming] = useState([]);
+  const [upcoming, setupcoming] = useState();
   const { setId } = useContext(MovieContext);
 
   useEffect(() => {
@@ -23,21 +24,19 @@ function Upcoming() {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     speed: 2000,
-    centerPadding: "50px",
-    centerMode: true,
+    centerPadding: "30px",
     swipeToSlide: true,
     responsive: [
       {
         breakpoint: 980,
         settings: {
           slidesToShow: 2,
-          centerMode: false,
         },
       },
       {
@@ -45,27 +44,31 @@ function Upcoming() {
         settings: {
           slidesToShow: 1,
           dots: false,
-          centerMode: false,
         },
       },
     ],
   };
   return (
     <div className="main">
-      <Slider {...settings} className="slider">
-        {upcoming.map((data) => (
-          <Link
-            to="/movie"
-            onClick={() => setId(data.id)}
-            className="item"
-            key={data.id}
-          >
-            <div>
-              <img src={IMAGE_URL + data.backdrop_path} alt="" />
-            </div>
-          </Link>
-        ))}
-      </Slider>
+      {upcoming ? (
+        <Slider {...settings} className="slider">
+          {upcoming &&
+            upcoming.map((data) => (
+              <Link
+                to="/movie"
+                onClick={() => setId(data.id)}
+                className="item"
+                key={data.id}
+              >
+                <div>
+                  <img src={IMAGE_URL + data.poster_path} alt="" />
+                </div>
+              </Link>
+            ))}
+        </Slider>
+      ) : (
+        <Loading width="400px" height="250px" />
+      )}
       {/* 
       <Typography variant="subtitle1">
         find your favourate movies here

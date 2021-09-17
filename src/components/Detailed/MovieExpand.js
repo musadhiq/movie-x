@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography } from "@material-ui/core";
+import Loading from "../Loading/Loading";
 import StarIcon from "@material-ui/icons/Star";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import TheatersIcon from "@material-ui/icons/Theaters";
@@ -31,7 +32,7 @@ function MovieExpand() {
 
   return (
     <>
-      {moviedtls && (
+      {moviedtls ? (
         <Container>
           <LeftContainer>
             <Typography variant="h4">{moviedtls.original_title}</Typography>
@@ -81,18 +82,20 @@ function MovieExpand() {
             <Typography variant="subtitle2">{moviedtls.overview}</Typography>
             <BottomList>
               <List>
-                <Linka href={moviedtls.homepage} target="_blank">
-                  <Button
-                    variant="contained"
-                    style={{
-                      width: "400px",
-                      fontWeight: "bold",
-                    }}
-                    startIcon={<PlayCircleFilledIcon />}
-                  >
-                    watch Now
-                  </Button>
-                </Linka>
+                {moviedtls.homepage && (
+                  <Linka href={moviedtls.homepage} target="_blank">
+                    <Button
+                      variant="contained"
+                      style={{
+                        width: "250px",
+                        fontWeight: "bold",
+                      }}
+                      startIcon={<PlayCircleFilledIcon />}
+                    >
+                      watch Now
+                    </Button>
+                  </Linka>
+                )}
               </List>
             </BottomList>
           </LeftContainer>
@@ -118,6 +121,8 @@ function MovieExpand() {
             </Link>
           </RightContainer>
         </Container>
+      ) : (
+        <Loading width="100%" height="70vh" />
       )}
     </>
   );
@@ -126,7 +131,6 @@ const Container = styled.div`
   display: flex;
   padding: 50px;
   flex-wrap: wrap;
-  background-color: #161b22;
   color: #fff;
   min-height: 80.4vh;
   justify-content: space-between;
